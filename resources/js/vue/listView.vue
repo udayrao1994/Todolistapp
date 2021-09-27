@@ -7,18 +7,49 @@
                 v-on:itemChange="$emit('reloadlist')"
             />
         </div>
+
+
+
+        <div class="card-footer pb-0 pt-3">
+            <jw-pagination :pageSize=2 :items="exampleItems" @changePage="onChangePage"></jw-pagination>
+        </div>
     </div>
+
 </template>
 
 <script>
+
 import listItem from "./listItem.vue"
+
 
 export default {
     props: ['items'],
     components: {
         listItem,
     },
+
+
+        data() {
+        return {
+           
+           exampleItems:this.items.map(function(ele){ return { name:ele.name,id:ele.id}}),
+           pageOfItems: []
+        };
+    },
+
+    methods: {
+        getList(){
+            return this.items.map(function(ele){ return { name:ele.name,id:ele.id}});
+        },
+        onChangePage(pageOfItems) {
+            console.log("pageOfItems",pageOfItems)
+        
+            this.pageOfItems = pageOfItems;
+        }
+    }
 }
+
+
 </script>
 
 <style scoped>

@@ -1,68 +1,111 @@
-<template>
-    <div class="item">
-        <input 
-            type="checkbox"
-            @change="updateCheck()"
-            v-model="item.completed"
-        />
-        <span :class="[item.completed ? 'completed' : '', 'itemText']"> {{ item.name }} </span>
-        <button @click="removeItem()" class="trashcan" >
-            <font-awesome-icon icon="trash" />
-        </button>
-    </div>
-</template>
+    <template>
+    <b-row>
+        <b-col cols="12">
+        <div class="item"   >
+            <input 
+                type="checkbox"
+                @change="updateCheck()"
+                v-model="item.completed"
+            />
+        
+        <div  class="row" v-if="isEditing">
+            <input type="text" v-model="item.name" />
+        </div>
+        
+        <div v-else>
+            <span :class="[item.completed ? 'completed' : '', 'itemText']"> {{ item.name }} </span>
+        </div>
+        
+            <div v-if="isEditing">
+            <button @click="update()" class="faEdit" >
+                <font-awesome-icon icon="plus-square" />
+            </button>
+        </div>
+        <div v-else>
+        <b-button variant="success" @click="edit()" >
+                Edit
+            </b-button>
+        </div>
+        <br>
+        <b-button variant="danger" @click="removeItem()" >
+                Delete
+            </b-button>
+        </div>
+        </b-col>
+            </b-row>
+    </template>
 
-<script>
+    <script>
 
-export default {
-    props: ['item'],
-    methods: {
-        updateCheck () {
-            axios.put('http://127.0.0.1:8000/api/items/' + this.item.id, {
-                item: this.item
-            })
-            .then( response=> {
-                if ( response.status == 200 ) {
-                    this.$emit('itemChange');
-                }
-            })
-            .catch( error => {
-                console.log('error : ', error);
-            })
+    export default {
+        props: ['item'],
+        data(){
+            return {isEditing:false}
         },
-        removeItem () {
-            axios.delete('http://127.0.0.1:8000/api/items/' + this.item.id )
-            .then( response=> {
-                if ( response.status == 200 ) {
-                    this.$emit('itemChange');
-                }
-            })
-            .catch( error => {
-                console.log('error : ', error);
-            })
-        },
+        methods: {
+            updateCheck () {
+                axios.put('http://127.0.0.1:8000/api/items/' + this.item.id, {
+                    item: this.item
+                })
+                .then( response=> {
+                    if ( response.status == 200 ) {
+                        this.$emit('itemChange');
+                    }
+                })
+                .catch( error => {
+                    console.log('error : ', error);
+                })
+            },
+            removeItem () {
+                axios.delete('http://127.0.0.1:8000/api/items/' + this.item.id )
+                .then( response=> {
+                    if ( response.status == 200 ) {
+                        this.$emit('itemChange');
+                    }
+                })
+                .catch( error => {
+                    console.log('error : ', error);
+                })
+            },
+            edit () {
+                this.isEditing=true;
+            },
+            update(){
+            
+                axios.put('http://127.0.0.1:8000/api/items/edit/' + this.item.id, {
+                    item: this.item
+                })
+                .then( response=> {
+                    if ( response.status == 200 ) {
+                        this.isEditing=false;
+                        this.$emit('itemChange');
+
+                    }
+                })
+                .catch( error => {
+                    console.log('error : ', error);
+                })
+            }
+        }
     }
-}
-</script>
+    </script>
 
-<style scoped>
-.completed {
-    text-decoration: line-through;
-    color: #999999;
-}
-.itemText {
-    width: 100%;
-    margin-left: 20px;
-}
-.item {
-    display: flex;
-    justify-content: center;
-    align-items: centers;
-}
-.trashcan {
-    background: #e6e6e6;
-    border: none;
-    color: #ff0000;
-    outline:none;
-}
-</style>
+    <style scoped>
+    .completed {
+        text-decoration: line-through;
+        color: #999999;
+        
+    }
+
+    .trashcan {
+        background: #e6e6e6;
+        border: none;
+        color: #ff0000;
+        outline:none;
+    
+
+    }
+    .body{
+        background-color: red;
+    }
+    </style>

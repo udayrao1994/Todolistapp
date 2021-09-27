@@ -60,9 +60,17 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        //
+        $existingItem = Item::find( $id );
+        if( $existingItem ) {
+            $existingItem->name = $request->item['name'];
+            //$existingItem->completed_at = $request->item['completed'] ? Carbon::now() : null;
+            $existingItem->save();
+
+            return $existingItem;
+        }
+        return "Item not fount";
     }
 
     /**

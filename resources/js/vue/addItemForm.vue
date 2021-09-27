@@ -1,13 +1,22 @@
-<template>
+<template >
+
+
+
+  
+
+
     <div class="addItem">
         <input type="text" v-model="item.name" />
-        <font-awesome-icon
-            icon="plus-square"
-            @click="addItem()"
-            :class="[ item.name ? 'active' : 'inactive']" 
-        />
-    </div>
+         <b-button  text-variant ="white" variant="dark" @click="addItem()" 
+         :class="[ item.name ? 'active' : 'inactive']" >Button</b-button>
+       
+       
+</div>
+
 </template>
+
+
+
 
 <script>
 
@@ -51,7 +60,7 @@ export default {
     align-items: center;
 }
 input {
-    background: #f7f7f7;
+    background: #c9c2c2;
     border: 0px;
     outline: none;
     padding: 5px;
@@ -63,7 +72,7 @@ input {
 
 }
 .active {
-    color: #00CE25;
+    color: #ce5200;
 }
 .inactive {
     color: #999999;
