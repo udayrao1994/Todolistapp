@@ -2,10 +2,10 @@
 
 
 
-  
 
 
     <div class="addItem">
+        
         <input type="text" v-model="item.name" />
          <b-button  text-variant ="white" variant="dark" @click="addItem()" 
          :class="[ item.name ? 'active' : 'inactive']" >Button</b-button>

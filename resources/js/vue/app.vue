@@ -23,10 +23,12 @@ import listView from "./listView.vue"
 
 
 
+
 export default {
     components: {
         addItemForm,
         listView,
+       
         
     
     
@@ -67,6 +69,7 @@ export default {
 }
 #title {
     text-align: center;
+    color:brown
 }
 </style>
 

@@ -1,4 +1,5 @@
     <template>
+  
     <b-row>
         <b-col cols="12">
         <div class="item"   >
@@ -33,6 +34,7 @@
         </div>
         </b-col>
             </b-row>
+  
     </template>
 
     <script>
@@ -90,22 +92,4 @@
     }
     </script>
 
-    <style scoped>
-    .completed {
-        text-decoration: line-through;
-        color: #999999;
-        
-    }
 
-    .trashcan {
-        background: #e6e6e6;
-        border: none;
-        color: #ff0000;
-        outline:none;
-    
-
-    }
-    .body{
-        background-color: red;
-    }
-    </style>
